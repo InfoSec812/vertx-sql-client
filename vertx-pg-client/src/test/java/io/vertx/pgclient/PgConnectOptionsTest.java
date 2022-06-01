@@ -188,6 +188,19 @@ public class PgConnectOptionsTest {
     assertEquals(expectedConfiguration, actualConfiguration);
   }
 
+  @Test
+  public void testValidUri13() {
+    connectionUri = "postgresql://user@myhost?options=--cluster%3Dheroes-db-2463";
+    actualConfiguration = PgConnectOptions.fromUri(connectionUri);
+
+    expectedConfiguration = new PgConnectOptions()
+                              .setHost("myhost")
+                              .setUser("user")
+                              .addProperty("options","--cluster=heroes-db-2463");
+
+    assertEquals(expectedConfiguration, actualConfiguration);
+  }
+
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidUri1() {
